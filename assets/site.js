@@ -125,7 +125,20 @@
     if(!revealObserver){revealObserver=new IntersectionObserver((entries)=>entries.forEach(x=>{if(x.isIntersecting){x.target.classList.add('is-visible');revealObserver.unobserve(x.target);}}),{threshold:.08});}
     document.querySelectorAll('.reveal:not(.is-visible)').forEach(e=>revealObserver.observe(e));
   }
+  function stripLinkTracking(){
+    // Sharing services sometimes append utm_source=chatgpt.com to incoming links.
+    // Keep the clean address without disrupting anchors or other parameters.
+    try {
+      const url=new URL(window.location.href);
+      let changed=false;
+      for(const key of [...url.searchParams.keys()]){
+        if(key.toLowerCase().startsWith('utm_')){url.searchParams.delete(key);changed=true;}
+      }
+      if(changed)history.replaceState(history.state,'',url.pathname+url.search+url.hash);
+    }catch(_){/* History writes may be blocked inside a preview. */}
+  }
   function setup(){
+    stripLinkTracking();
     $('menu-toggle').addEventListener('click',()=>{const n=$('mobile-nav');n.hidden=!n.hidden;$('menu-toggle').setAttribute('aria-expanded',String(!n.hidden));});
     $('mobile-nav').querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{$('mobile-nav').hidden=true;$('menu-toggle').setAttribute('aria-expanded','false');}));
     $('copy-email').addEventListener('click',async()=>{

@@ -1,0 +1,23 @@
+/* V4: thoughtful portfolio branding with user-supplied Marathi portrait art. */
+:root{--v4-navy:#181653;--v4-gold:#ffe521}
+.brand{gap:12px;min-width:0;white-space:nowrap}
+.brand-mark{width:48px;height:48px;min-width:48px;padding:0;border-radius:14px;display:grid;place-items:center;letter-spacing:-2px;font-family:'Manrope',Arial,sans-serif;font-size:18px;line-height:1;font-weight:900;color:var(--v4-gold);background:#171450;border:1px solid rgba(255,255,255,.18);box-shadow:0 4px 11px rgba(20,18,60,.12);position:relative}
+.brand-mark:after{display:none!important;content:none!important}
+.brand-text{font-size:17px!important;letter-spacing:-.7px!important;font-weight:900!important;color:#192418}
+.brand-text span{font-size:11px!important;letter-spacing:-.1px!important;font-weight:600!important;color:#647365!important}
+.site-header{isolation:isolate}
+.v3-hero-grid{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(24px,3vw,50px)}
+.v3-hero-name{max-width:750px;font-size:clamp(47px,5vw,79px);line-height:1.02;letter-spacing:-3.4px}
+.v3-visual{padding:0;min-height:unset;display:block;align-self:center}
+.v4-artwork-card{width:100%;margin:0;position:relative;overflow:hidden;isolation:isolate;border-radius:27px;background:#1822aa;box-shadow:0 20px 60px rgba(20,27,87,.19),0 2px 7px rgba(20,27,87,.09);border:1px solid rgba(15,24,87,.16);transform:translateZ(0);transition:transform .3s ease,box-shadow .3s ease}
+.v4-artwork-card:hover{transform:translateY(-4px);box-shadow:0 25px 66px rgba(20,27,87,.23),0 4px 12px rgba(20,27,87,.10)}
+.v4-artwork-image{width:100%;height:auto;aspect-ratio:1024 / 631;object-fit:cover;display:block;background:#1528ad;color:transparent}
+.v4-artwork-caption{min-height:43px;padding:11px 17px;display:flex;align-items:center;gap:11px;color:#f6f9ff;background:#15174e;font-family:'Manrope',Arial,sans-serif;font-size:9px;font-weight:850;letter-spacing:1.1px}
+.v4-caption-star{color:#ffe521;font-size:17px;line-height:1}
+.v4-caption-right{margin-left:auto;color:#c1c6f4;white-space:nowrap;font-size:9px;letter-spacing:.6px}
+.v4-visually-hidden{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+@media(max-width:1050px){.v3-hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.v4-artwork-caption{font-size:8px}.v4-caption-right{font-size:8px}}
+@media(max-width:900px){.v3-hero-grid{grid-template-columns:1fr}.v3-visual{min-height:0!important;max-width:720px;margin:35px auto 0;padding:0!important}.v3-hero-grid{padding-bottom:36px}.v4-artwork-card{border-radius:23px}}
+@media(max-width:630px){.brand-mark{width:40px;height:40px;min-width:40px;font-size:15px;border-radius:11px}.brand-text{font-size:15px!important}.brand-text span{display:none!important}.v3-hero-name{font-size:clamp(39px,11.2vw,61px)}.v3-visual{margin-top:25px}.v4-artwork-card{border-radius:17px}.v4-artwork-caption{padding:9px 11px;min-height:36px;font-size:8px;gap:6px}.v4-caption-right{font-size:7px;letter-spacing:0}.v3-hero-grid{padding-bottom:29px}}
+@media(max-width:370px){.v4-caption-right{display:none}.v4-artwork-caption{justify-content:center}.v3-hero-name{font-size:38px}}
+@media(prefers-reduced-motion:reduce){.v4-artwork-card{transition:none!important;transform:none!important}}

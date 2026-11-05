@@ -68,6 +68,18 @@ class PortfolioBuildTests(unittest.TestCase):
             self.assertTrue((root / "dist/robots.txt").exists())
             self.assertTrue((root / "dist/sitemap.xml").exists())
 
+    def test_optional_marathi_name_fallback(self) -> None:
+        # Pages CMS can omit optional fields during updates.
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            make_fixture(root)
+            site_path = root / "content/site.json"
+            site = json.loads(site_path.read_text(encoding="utf-8"))
+            site["profile"].pop("marathiName", None)
+            site_path.write_text(json.dumps(site, ensure_ascii=False), encoding="utf-8")
+            result = build(root)
+            self.assertEqual(result["site"]["profile"]["marathiName"], "हर्षद माधव धुप्पे")
+
     def test_rejects_unsafe_media_paths(self) -> None:
         spec = importlib.util.spec_from_file_location("portfolio_site_build_test", SRC / "scripts/build.py")
         module = importlib.util.module_from_spec(spec)
@@ -99,7 +111,7 @@ class PortfolioBuildTests(unittest.TestCase):
         projects = sorted((SRC / "content/projects").glob("*.json"))
         self.assertGreaterEqual(len(projects), 3)
         site = json.loads((SRC / "content/site.json").read_text(encoding="utf-8"))
-        self.assertEqual(site["profile"]["marathiName"], "हर्षद माधव धुप्पे")
+        self.assertEqual(site["profile"].get("marathiName") or "हर्षद माधव धुप्पे", "हर्षद माधव धुप्पे")
         self.assertEqual(site["profile"]["name"], "Harshad Madhav Dhuppe")
         for filename in (".pages.yml", ".github/workflows/pages.yml", "assets/v3.css", "assets/site.js"):
             self.assertTrue((SRC / filename).is_file(), filename)

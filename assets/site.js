@@ -29,7 +29,7 @@
   function projectCard(p, index) {
     const variant=['code','vision','agri','erp','data','python'].includes(p.visual)?p.visual:'fallback';
     const repo=safeUrl(p.github), demo=safeUrl(p.demo, '');
-    const projectTags=(p.tags||[]).slice(0,6).map(x=>`<span class="tag">${safe(x)}</span>`).join('');
+    const projectTags=(Array.isArray(p.tags)?p.tags:[]).slice(0,6).map(x=>`<span class="tag">${safe(x)}</span>`).join('');
     const image=safeMedia(p.image);
     const caseNotes=[['THE PROBLEM',p.problem],['THE APPROACH',p.approach],['THE RESULT',p.outcome]].filter(x=>x[1]);
     const evidence=caseNotes.length?`<details class="project-details"><summary>Engineering notes & decisions</summary><div class="project-case-study">${caseNotes.map(([label,value])=>`<div><b>${label}</b> ${safe(value)}</div>`).join('')}</div></details>`:'';
@@ -40,22 +40,22 @@
       <div class="project-links">${repo!=='#'?`<a href="${safe(repo)}" target="_blank" rel="noopener noreferrer">Source code <span aria-hidden="true">↗</span></a>`:''}${demo?`<a href="${safe(demo)}" target="_blank" rel="noopener noreferrer">Live demo <span aria-hidden="true">↗</span></a>`:''}</div></div></article>`;
   }
   function projectRender() {
-    const raw=(currentSite.projects||[]).filter(p=>p.published!==false);
+    const raw=(Array.isArray(currentSite.projects)?currentSite.projects:[]).filter(p=>p&&p.published!==false);
     const categories=['All',...new Set(raw.map(p=>p.category).filter(Boolean))];
     if(!categories.includes(activeFilter))activeFilter='All';
     const filters=$('project-filters');
     filters.innerHTML=categories.map(f=>`<button class="filter-chip ${f===activeFilter?'active':''}" type="button" data-filter="${safe(f)}" aria-pressed="${f===activeFilter}">${f==='All'?'All work':safe(f)}${f==='All'?` <span>${String(raw.length).padStart(2,'0')}</span>`:''}</button>`).join('');
     filters.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>{activeFilter=button.dataset.filter;projectRender();}));
-    const shown=raw.filter(p=>(activeFilter==='All'||p.category===activeFilter) && (!searchTerm||[p.name,p.category,p.description,p.problem,p.approach,...(p.tags||[])].join(' ').toLowerCase().includes(searchTerm)));
+    const shown=raw.filter(p=>(activeFilter==='All'||p.category===activeFilter) && (!searchTerm||[p.name,p.category,p.description,p.problem,p.approach,...(Array.isArray(p.tags)?p.tags:[])].join(' ').toLowerCase().includes(searchTerm)));
     text('project-showing',`${shown.length} project${shown.length===1?'':'s'} shown`);
     $('projects-grid').innerHTML=shown.length?shown.map(projectCard).join(''):'<p>No projects in this category yet.</p>';
     observeReveal();
   }
   function skillsRender(){
-    $('skills-grid').innerHTML=(currentSite.skills||[]).map(s=>`<article class="skill-card reveal"><div class="skill-icon" aria-hidden="true">${safe(icon(s.icon))}</div><h3>${safe(s.title)}</h3><div class="skill-pills">${(s.items||[]).map(i=>`<span class="skill-pill">${safe(i)}</span>`).join('')}</div></article>`).join('');
+    $('skills-grid').innerHTML=(Array.isArray(currentSite.skills)?currentSite.skills:[]).filter(Boolean).map(s=>`<article class="skill-card reveal"><div class="skill-icon" aria-hidden="true">${safe(icon(s.icon))}</div><h3>${safe(s.title)}</h3><div class="skill-pills">${(s.items||[]).map(i=>`<span class="skill-pill">${safe(i)}</span>`).join('')}</div></article>`).join('');
   }
   function milestonesRender(){
-    $('journey-list').innerHTML=(currentSite.milestones||[]).map(m=>`<div class="journey-item reveal"><div class="journey-year">${safe(m.year)}</div><h3>${safe(m.label)}</h3><p>${safe(m.description)}</p></div>`).join('');
+    $('journey-list').innerHTML=(Array.isArray(currentSite.milestones)?currentSite.milestones:[]).filter(Boolean).map(m=>`<div class="journey-item reveal"><div class="journey-year">${safe(m.year)}</div><h3>${safe(m.label)}</h3><p>${safe(m.description)}</p></div>`).join('');
   }
   function certificatesRender(){
     const area=$('certificate-grid');
@@ -74,7 +74,8 @@
     area.innerHTML=currentResumes.map(r=>`<div class="resume-item"><span class="res-icon">▤</span><div class="resume-item-info"><h3>${safe(r.label)}</h3><p>${safe(r.role||'Resume')} · ${safe(r.mime||'PDF')} · DOWNLOAD</p></div><a class="resume-download" href="${safe(safeMedia(r.file))}" download aria-label="Download ${safe(r.label)}" title="Download resume">↓</a></div>`).join('');
   }
   function updatePortrait(){
-    const source=safeMedia(currentSite?.profile?.avatar)||'https://avatars.githubusercontent.com/u/215665604?v=4';
+    const stored=safeMedia(currentSite?.profile?.avatar);
+    const source=stored && !stored.endsWith('profile-portrait.webp') ? stored : 'assets/uploads/images/harshad-marathi-hero.webp';
     for(const id of ['portrait-image','hero-avatar']){
       const image=$(id);if(!image)continue;
       image.onerror=()=>{image.style.visibility='hidden';};
@@ -108,15 +109,26 @@
     updatePortrait();projectRender();skillsRender();milestonesRender();resumesRender();certificatesRender();observeReveal();
   }
   async function load(){
-    try {
-      const response=await fetch('site-data.json', {cache:'no-store'});
-      if(!response.ok)throw Error('Site data unavailable');
-      const body=await response.json();
-      applyData(body.site,body.resumes||[],body.certificates||[]);
-    } catch(error) {
-      const section=$('projects-grid');if(section)section.innerHTML='<p class="v3-error">Portfolio information could not load. Run the local preview server or check the most recent GitHub Pages build.</p>';
-      toast('Portfolio data could not load. Check the site build.');
-      console.error('Portfolio data error:',error);
+    let payload=null, lastError=null;
+    for(const path of ['./site-data.json?v=41','./site-data.json']){
+      try{
+        const response=await fetch(path,{cache:'no-store'});
+        if(!response.ok)throw Error('HTTP '+response.status+' for '+path);
+        const data=await response.json();
+        if(!data?.site?.profile||!Array.isArray(data.site.projects))throw Error('Invalid portfolio data');
+        payload=data;break;
+      }catch(error){lastError=error;console.warn('Portfolio JSON unavailable:',path,error);}
+    }
+    if(!payload){
+      console.error('Portfolio data unavailable:',lastError);
+      const grid=$('projects-grid');if(grid)grid.innerHTML='<p class="v41-loading-note">Project details are temporarily unavailable. Browse my projects on GitHub or contact me below.</p>';
+      return;
+    }
+    try{
+      applyData(payload.site,Array.isArray(payload.resumes)?payload.resumes:[],Array.isArray(payload.certificates)?payload.certificates:[]);
+    }catch(error){
+      console.error('Portfolio rendering error:',error);
+      const grid=$('projects-grid');if(grid&&!grid.children.length)grid.innerHTML='<p class="v41-loading-note">Some details could not render. View my GitHub for all projects.</p>';
     }
   }
   let revealObserver=null;

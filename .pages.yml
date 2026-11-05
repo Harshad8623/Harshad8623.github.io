@@ -1,0 +1,349 @@
+# Visual GitHub editor settings for Pages CMS
+media:
+- name: images
+  label: Images and screenshots
+  input: assets/uploads/images
+  output: /assets/uploads/images
+  extensions:
+  - jpg
+  - jpeg
+  - png
+  - webp
+  rename: safe
+- name: documents
+  label: Resumes and certificates
+  input: assets/uploads/documents
+  output: /assets/uploads/documents
+  extensions:
+  - pdf
+  - docx
+  rename: safe
+content:
+- name: settings
+  label: Profile, skills & SEO
+  type: file
+  path: content/site.json
+  format: json
+  fields:
+  - name: profile
+    label: Profile & introduction
+    type: object
+    fields:
+    - name: name
+      label: Full name
+      type: string
+      required: true
+    - name: firstName
+      label: First name
+      type: string
+    - name: marathiName
+      label: Marathi name
+      type: string
+    - name: role
+      label: Career headline
+      type: string
+    - name: eyebrow
+      label: Hero eyebrow
+      type: string
+    - name: headline
+      label: Large hero headline
+      type: text
+    - name: heroDescription
+      label: Hero introduction
+      type: text
+    - name: avatar
+      label: Portrait photograph
+      type: image
+      options:
+        media: images
+    - name: collegeLogo
+      label: College emblem (optional)
+      type: image
+      options:
+        media: images
+    - name: availability
+      label: Availability
+      type: string
+    - name: aboutHeading
+      label: About heading
+      type: string
+    - name: about
+      label: About biography
+      type: text
+    - name: focus
+      label: Current learning focus
+      type: text
+    - name: location
+      label: Location
+      type: string
+    - name: college
+      label: College
+      type: string
+    - name: degree
+      label: Degree
+      type: string
+    - name: graduation
+      label: Graduation year
+      type: string
+    - name: cgpa
+      label: CGPA (optional)
+      type: string
+    - name: email
+      label: Email
+      type: string
+    - name: phone
+      label: Mobile number
+      type: string
+    - name: github
+      label: GitHub profile URL
+      type: string
+    - name: linkedin
+      label: LinkedIn URL
+      type: string
+    - name: contactHeading
+      label: Contact heading
+      type: text
+    - name: contactDescription
+      label: Contact description
+      type: text
+    - name: footerLine
+      label: Footer tagline
+      type: string
+  - name: skills
+    label: Skill categories
+    type: object
+    list:
+      collapsible:
+        collapsed: true
+        summary: '{title}'
+    fields:
+    - name: title
+      label: Category
+      type: string
+    - name: icon
+      type: select
+      options:
+        values:
+        - terminal
+        - layout
+        - spark
+        - layers
+        - cloud
+        - brain
+    - name: items
+      label: Skills
+      type: string
+      list: true
+  - name: milestones
+    label: Education and milestones
+    type: object
+    list:
+      collapsible:
+        collapsed: true
+        summary: '{label}'
+    fields:
+    - name: year
+      type: string
+    - name: label
+      type: string
+    - name: description
+      type: text
+  - name: seo
+    label: Search engine information
+    type: object
+    fields:
+    - name: title
+      label: Page title
+      type: string
+    - name: description
+      label: Search description
+      type: text
+- name: projects
+  label: Projects & live links
+  type: collection
+  path: content/projects
+  format: json
+  filename: '{id}.json'
+  view:
+    primary: name
+    fields:
+    - name
+    - published
+    - order
+    sort:
+    - order
+    - name
+    default:
+      sort: order
+      order: asc
+  fields:
+  - name: name
+    label: Project name
+    type: string
+    required: true
+  - name: id
+    label: Unique URL-safe ID
+    type: string
+    required: true
+    pattern: ^[a-z0-9][a-z0-9-]{1,79}$
+  - name: published
+    label: Visible on website
+    type: boolean
+  - name: featured
+    label: Featured project
+    type: boolean
+  - name: order
+    label: Order (lower first)
+    type: number
+  - name: kicker
+    label: Short category heading
+    type: string
+  - name: description
+    label: Overview
+    type: text
+  - name: category
+    label: Project category
+    type: select
+    options:
+      values:
+      - Backend
+      - Full-stack
+      - Web
+      - Learning
+      - AI
+  - name: tags
+    label: Technology tags
+    type: string
+    list: true
+  - name: highlights
+    label: Key highlights
+    type: string
+    list: true
+  - name: github
+    label: GitHub source link
+    type: string
+  - name: demo
+    label: Live demo URL
+    type: string
+    description: Enter a real https:// link only after you verify the site works. Leave blank otherwise.
+  - name: image
+    label: Project screenshot
+    type: image
+    options:
+      media: images
+  - name: visual
+    label: Default illustration
+    type: select
+    options:
+      values:
+      - code
+      - vision
+      - agri
+      - erp
+      - data
+      - python
+  - name: problem
+    label: Problem solved
+    type: text
+  - name: approach
+    label: Architecture and approach
+    type: text
+  - name: outcome
+    label: Outcome and limitations
+    type: text
+- name: certificates
+  label: Certificates & achievements
+  type: collection
+  path: content/certificates
+  format: json
+  filename: '{primary}.json'
+  view:
+    primary: title
+    fields:
+    - title
+    - published
+    - order
+    sort:
+    - order
+    - title
+    default:
+      sort: order
+      order: asc
+  fields:
+  - name: title
+    label: Certificate title
+    type: string
+    required: true
+  - name: issuer
+    label: Issuing organization
+    type: string
+    required: true
+  - name: issued
+    label: Date issued
+    type: string
+  - name: description
+    label: What I learned
+    type: text
+  - name: url
+    label: External credential URL
+    type: string
+  - name: file
+    label: Certificate PDF
+    type: file
+    options:
+      media: documents
+      extensions:
+      - pdf
+  - name: image
+    label: Certificate image JPG / PNG
+    type: image
+    options:
+      media: images
+  - name: published
+    label: Show publicly
+    type: boolean
+  - name: order
+    label: Sort order
+    type: number
+- name: resumes
+  label: Resumes / CVs
+  type: collection
+  path: content/resumes
+  format: json
+  filename: '{primary}.json'
+  view:
+    primary: label
+    fields:
+    - label
+    - published
+    - order
+    sort:
+    - order
+    - label
+    default:
+      sort: order
+      order: asc
+  fields:
+  - name: label
+    label: Resume name
+    type: string
+    required: true
+  - name: role
+    label: Target role
+    type: string
+  - name: file
+    label: Resume file (PDF or DOCX)
+    type: file
+    required: true
+    options:
+      media: documents
+      extensions:
+      - pdf
+      - docx
+    description: Uploads are PUBLIC in a GitHub Pages repository. Use a recruiter-safe document.
+  - name: published
+    label: Visible to recruiters
+    type: boolean
+  - name: order
+    label: Display order
+    type: number

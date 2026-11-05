@@ -1,0 +1,27 @@
+{
+  "id": "python-journey",
+  "name": "Python Learning Journey",
+  "kicker": "PRACTICE IN PUBLIC",
+  "description": "A growing collection of Python programs, structured concept practice and mini projects that documents the learning process.",
+  "category": "Learning",
+  "tags": [
+    "Python",
+    "Problem solving",
+    "OOP",
+    "DSA"
+  ],
+  "highlights": [
+    "Structured practice",
+    "Public learning log"
+  ],
+  "github": "https://github.com/Harshad8623/Python-Learning-Journey",
+  "demo": "",
+  "visual": "python",
+  "featured": false,
+  "problem": "",
+  "approach": "",
+  "outcome": "",
+  "image": "",
+  "order": 60,
+  "published": true
+}

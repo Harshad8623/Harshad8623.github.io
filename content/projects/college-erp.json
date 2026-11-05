@@ -1,0 +1,27 @@
+{
+  "id": "college-erp",
+  "name": "College ERP v2",
+  "kicker": "ACADEMIC MANAGEMENT SYSTEM",
+  "description": "A college administration web-app prototype exploring databases, institutional records and deployment tooling.",
+  "category": "Backend",
+  "tags": [
+    "Python",
+    "SQL",
+    "HTML",
+    "Deployment"
+  ],
+  "highlights": [
+    "Database-backed workflows",
+    "Institutional use case"
+  ],
+  "github": "https://github.com/Harshad8623/csmss-college-erp-v2",
+  "demo": "",
+  "visual": "erp",
+  "featured": false,
+  "problem": "",
+  "approach": "",
+  "outcome": "",
+  "image": "",
+  "order": 40,
+  "published": true
+}

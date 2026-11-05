@@ -1,0 +1,28 @@
+{
+  "id": "dharti-rakshak",
+  "name": "Dharti Rakshak",
+  "kicker": "FARM ADVISORY & MARKETPLACE",
+  "description": "A multilingual farming companion for managing advisory checks, field records, cash flows and local marketplace activity.",
+  "category": "Full-stack",
+  "tags": [
+    "Python",
+    "Flask",
+    "SQLite",
+    "Multilingual"
+  ],
+  "highlights": [
+    "Farmer-first workflows",
+    "Marketplace & records",
+    "Offline-capable guidance"
+  ],
+  "github": "https://github.com/Harshad8623/AI-Based-Organic-Farming-Advisary-System-and-Marketplace.",
+  "demo": "",
+  "visual": "agri",
+  "featured": true,
+  "problem": "Farmers need a simple place to track fields, tasks, market listings and day-to-day financial records.",
+  "approach": "Python/Flask with multilingual interfaces, advisory checks and farmer/buyer workflows.",
+  "outcome": "Demonstration application; advisory content is not a substitute for local agricultural expertise.",
+  "image": "",
+  "order": 30,
+  "published": true
+}

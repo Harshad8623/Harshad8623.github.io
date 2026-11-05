@@ -1,0 +1,29 @@
+{
+  "id": "codeniti-ai",
+  "name": "CodeNiti AI",
+  "kicker": "CODE INTELLIGENCE PLATFORM",
+  "description": "A code-review workbench combining AI-assisted developer tools with deterministic static checks, authentication, caching and report history.",
+  "category": "Backend",
+  "tags": [
+    "Python",
+    "FastAPI",
+    "Gemini API",
+    "Bandit",
+    "Ruff"
+  ],
+  "highlights": [
+    "API-first architecture",
+    "Static security checks",
+    "Automated CI tests"
+  ],
+  "github": "https://github.com/Harshad8623/CodeNiti-AI",
+  "demo": "https://codeniti-ai.onrender.com/",
+  "visual": "code",
+  "featured": true,
+  "problem": "Developers need to review code quality, spot common security issues and understand proposed changes without relying on AI suggestions alone.",
+  "approach": "FastAPI endpoints combine code-analysis utilities, bounded caching, account-scoped history and AI-assisted suggestions.",
+  "outcome": "Working academic prototype with automated checks; review the source and README for limitations.",
+  "image": "",
+  "order": 10,
+  "published": true
+}

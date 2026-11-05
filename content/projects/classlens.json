@@ -1,0 +1,28 @@
+{
+  "id": "classlens",
+  "name": "ClassLens",
+  "kicker": "SMART CLASSROOM ATTENDANCE",
+  "description": "A role-based attendance platform with camera-assisted recognition, teacher review flows, subject tracking and student dashboards.",
+  "category": "Full-stack",
+  "tags": [
+    "React",
+    "TypeScript",
+    "FastAPI",
+    "OpenCV"
+  ],
+  "highlights": [
+    "Teacher review workflow",
+    "Role-based dashboards",
+    "API & browser tests"
+  ],
+  "github": "https://github.com/Harshad8623/Vision-Based-Attendance-System",
+  "demo": "",
+  "visual": "vision",
+  "featured": true,
+  "problem": "Manual lecture attendance takes time and is hard to audit when errors occur.",
+  "approach": "React dashboards, FastAPI services, OpenCV-assisted recognition and a teacher verification workflow.",
+  "outcome": "Role-based prototype with backend and browser tests; recognition accuracy is not independently claimed.",
+  "image": "",
+  "order": 20,
+  "published": true
+}

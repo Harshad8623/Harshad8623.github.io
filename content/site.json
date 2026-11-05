@@ -1,0 +1,101 @@
+{
+  "profile": {
+    "name": "Harshad Madhav Dhuppe",
+    "firstName": "Harshad",
+    "role": "Python Developer · Backend Engineer · Full-Stack Projects",
+    "eyebrow": "FINAL-YEAR ENGINEERING STUDENT · CLASS OF 2027",
+    "headline": "Backend engineering.\nThoughtful software.",
+    "heroDescription": "I build Python backends, AI-assisted tools and full-stack products — with a focus on clarity, testing and useful workflows. Explore what I have built and what I am learning.",
+    "aboutHeading": "Curious by nature. Engineer by practice.",
+    "about": "I'm a final-year Electronics and Computer Engineering student who enjoys turning complex problems into useful web applications. My work spans Python backends, data-driven products and AI-assisted features. I care about understanding how things work, testing assumptions and improving each iteration.",
+    "focus": "Currently sharpening Python, DSA, backend architecture, SQL and reliable software engineering practices.",
+    "location": "Chhatrapati Sambhajinagar, Maharashtra, India",
+    "college": "CSMSS Chh. Shahu College of Engineering, Chhatrapati Sambhajinagar",
+    "degree": "B.Tech · Electronics & Computer Engineering",
+    "graduation": "2027",
+    "cgpa": "7.46",
+    "email": "dhuppeh@gmail.com",
+    "github": "https://github.com/Harshad8623",
+    "linkedin": "https://www.linkedin.com/in/harshad-dhuppe-b352ab253",
+    "availability": "OPEN TO ENTRY-LEVEL SOFTWARE ROLES",
+    "contactHeading": "LET’S BUILD\nSOMETHING USEFUL.",
+    "contactDescription": "Have an opportunity, a project idea, or a good engineering problem? I'd be glad to connect.",
+    "footerLine": "Python, projects and purposeful engineering. / हर्षद माधव धुप्पे",
+    "avatar": "assets/uploads/images/profile-portrait.webp",
+    "marathiName": "हर्षद माधव धुप्पे",
+    "phone": "+91 8623864779",
+    "collegeLogo": "assets/uploads/images/csmss-college-logo.png"
+  },
+  "skills": [
+    {
+      "title": "Backend engineering",
+      "icon": "terminal",
+      "items": [
+        "Python",
+        "FastAPI",
+        "Flask",
+        "REST APIs",
+        "SQLite",
+        "SQL",
+        "Pydantic"
+      ]
+    },
+    {
+      "title": "Front-end development",
+      "icon": "layout",
+      "items": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "React",
+        "TypeScript",
+        "Responsive UI"
+      ]
+    },
+    {
+      "title": "AI & code intelligence",
+      "icon": "spark",
+      "items": [
+        "Gemini API",
+        "OpenCV",
+        "AST analysis",
+        "Bandit",
+        "Ruff",
+        "Computer vision"
+      ]
+    },
+    {
+      "title": "Engineering foundations",
+      "icon": "layers",
+      "items": [
+        "Git & GitHub",
+        "Pytest",
+        "Docker basics",
+        "DSA",
+        "OOP",
+        "DBMS"
+      ]
+    }
+  ],
+  "milestones": [
+    {
+      "year": "2027",
+      "label": "Graduation",
+      "description": "Expected B.Tech completion in Electronics & Computer Engineering."
+    },
+    {
+      "year": "2026–27",
+      "label": "Final-year engineering projects",
+      "description": "Building CodeNiti AI and independently exploring backend, full-stack and vision systems."
+    },
+    {
+      "year": "2025–26",
+      "label": "Learning through shipping",
+      "description": "Practicing Python, APIs, databases, and real application workflows in public repositories."
+    }
+  ],
+  "seo": {
+    "title": "Harshad Madhav Dhuppe | Python & Backend Developer · हर्षद माधव धुप्पे",
+    "description": "Portfolio of Harshad Madhav Dhuppe (हर्षद माधव धुप्पे), an Electronics and Computer Engineering student at CSMSS Chh. Shahu College of Engineering. Python, FastAPI, full-stack projects, certificates and resume."
+  }
+}

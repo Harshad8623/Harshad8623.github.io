@@ -1,0 +1,27 @@
+{
+  "id": "college-predictor",
+  "name": "College Predictor",
+  "kicker": "DATA-DRIVEN ADMISSIONS EXPLORER",
+  "description": "A responsive admission exploration tool built around historical MHT-CET CAP cutoff information and interactive filters.",
+  "category": "Web",
+  "tags": [
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "Data"
+  ],
+  "highlights": [
+    "Interactive filters",
+    "Mobile-first interface"
+  ],
+  "github": "https://github.com/Harshad8623/college-predictor",
+  "demo": "",
+  "visual": "data",
+  "featured": false,
+  "problem": "",
+  "approach": "",
+  "outcome": "",
+  "image": "",
+  "order": 50,
+  "published": true
+}

@@ -1,0 +1,23 @@
+/* V4.2 — polished portfolio presentation, sharp original artwork, accessible controls */
+:root{--v42-navy:#131854;--v42-gold:#f4e32b;--v42-ink:#142018}
+.brand-mark{letter-spacing:-.09em!important;font-family:'Manrope',Arial,sans-serif!important;font-weight:900!important;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(19,24,84,.12)}
+.brand-mark::after{display:none!important;content:none!important}
+.brand-text{letter-spacing:-.035em}
+.v4-artwork-card{box-shadow:0 30px 75px rgba(13,23,111,.18)!important;overflow:hidden;border:1px solid rgba(10,20,66,.14)}
+.v4-artwork-image{display:block;width:100%;height:auto;aspect-ratio:1599/984;object-fit:contain!important;image-rendering:auto;filter:none!important}
+.v41-portrait-card{border-color:#192a6f!important;box-shadow:0 28px 64px rgba(22,36,90,.16)!important}
+.v41-portrait-image-wrap{background:#0528b7!important;max-height:560px;min-height:300px}
+.v41-portrait-image-wrap img{display:block;height:100%;width:100%;object-fit:cover!important;object-position:52% 26%!important;filter:none!important;transform:none!important;image-rendering:auto}
+.v41-portrait-info{padding:23px 26px 28px!important}
+.v41-portrait-info strong{letter-spacing:-.04em}
+.v41-portrait-info p{font-size:13px;line-height:1.7;color:#cfdaff}
+.v3-hero-copy .v3-hero-name{overflow-wrap:break-word;hyphens:none}
+.v3-hero-description{max-width:620px}
+.project-details summary{cursor:pointer}
+.project-details summary:focus-visible,.v3-search-row input:focus-visible{outline:3px solid #3763ee;outline-offset:3px}
+#projects-grid:empty::before{content:'Projects are loading…';font-size:14px;color:#526353}
+.v42-content-note{border:1px solid #dce8d9;background:#f5faf3;color:#2b5533;padding:23px;border-radius:20px;font-size:14px;line-height:1.7}
+@media(max-width:1000px){.v41-portrait-image-wrap{height:410px}}
+@media(max-width:720px){.v41-portrait-image-wrap{height:420px}.v41-portrait-info{padding:20px!important}}
+@media(max-width:390px){.v41-portrait-image-wrap{height:355px}.v41-portrait-info strong{font-size:21px}.v41-portrait-info p{font-size:12px}}
+@media(prefers-reduced-motion:reduce){html:focus-within{scroll-behavior:auto}.v4-artwork-card,.v41-portrait-card{animation:none!important;transition:none!important}}

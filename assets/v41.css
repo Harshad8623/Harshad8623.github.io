@@ -1,11 +1,11 @@
-/* V4.1 – recruiter-focused identity and robust layout */
-:root{--v41-navy:#17184f;--v41-gold:#ffe11c}
-.v41-portrait-card{min-height:0!important;background:#111a52!important;border:1px solid rgba(23,24,79,.2)!important;border-radius:30px!important;overflow:hidden;display:flex;flex-direction:column;gap:0;padding:0!important;color:white;box-shadow:0 22px 56px rgba(21,28,82,.13)}
+/* V4.1 – improved identity portrait, data-state UX and focused recruiter polish */
+:root{--v41-navy:#17184f;--v41-gold:#ffe11c;--v41-ink:#111a22;--v41-subtle:#5c6684}
+.v41-portrait-card{min-height:0!important;background:#131a50!important;border:1px solid rgba(23,24,79,.2)!important;border-radius:30px!important;overflow:hidden;display:flex;flex-direction:column;gap:0;padding:0!important;color:white;box-shadow:0 22px 56px rgba(21,28,82,.13)}
 .v41-portrait-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:17px 22px;background:#111a52}
-.v41-eyebrow{font:800 10px/1.3 'Manrope',Arial,sans-serif;letter-spacing:1.7px;color:#d1dbff}
+.v41-eyebrow{font-family:'Manrope',sans-serif;font-size:10px;font-weight:800;letter-spacing:1.7px;color:#d1dbff}
 .v41-mini-accent{font-size:21px;color:var(--v41-gold)}
 .v41-portrait-image-wrap{position:relative;width:100%;height:clamp(300px,36vw,510px);overflow:hidden;background:#112fbd;isolation:isolate}
-.v41-portrait-image-wrap img{display:block;width:100%;height:100%;object-fit:cover;object-position:99% 43%;filter:none!important;transform:none!important}
+.v41-portrait-image-wrap img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 38%;filter:none!important;transform:none!important}
 .v41-portrait-image-wrap:after{content:'';position:absolute;inset:auto 0 0;height:23%;background:linear-gradient(transparent,rgba(11,22,62,.27));pointer-events:none}
 .v41-portrait-info{padding:24px 27px 27px;display:flex;align-items:flex-end;justify-content:space-between;gap:18px;background:#111a52}
 .v41-face-label{font-size:10px;display:block;letter-spacing:1.6px;font-weight:750;color:#acbef1;margin-bottom:13px}
@@ -13,7 +13,8 @@
 .v41-portrait-info p{font-size:13px;color:#bdc9ef;line-height:1.5;margin:11px 0 0}
 .v41-portrait-arrow{display:grid;place-items:center;flex:0 0 43px;height:43px;background:var(--v41-gold);color:#151749;border-radius:50%;font-size:23px}
 .v4-artwork-card{box-shadow:0 20px 62px rgba(19,31,102,.2)!important}
-.v4-artwork-image{object-fit:contain!important}
+.v4-artwork-image{aspect-ratio:1599 / 984;object-fit:contain!important}
+/* More apparent focus state for keyboard navigation. */
 :where(a,button,input,summary):focus-visible{outline:3px solid #3e5fe6;outline-offset:4px}
 .v41-loading-note{font-size:13px;padding:22px;border-radius:17px;background:#f4f7f9;color:#3a4267;border:1px solid #e5ebf6}
 @media(max-width:950px){.v41-portrait-image-wrap{height:clamp(330px,58vw,530px)}}

@@ -40,7 +40,7 @@
       <div class="project-links">${repo!=='#'?`<a href="${safe(repo)}" target="_blank" rel="noopener noreferrer">Source code <span aria-hidden="true">↗</span></a>`:''}${demo?`<a href="${safe(demo)}" target="_blank" rel="noopener noreferrer">Live demo <span aria-hidden="true">↗</span></a>`:''}</div></div></article>`;
   }
   function projectRender() {
-    const raw=(Array.isArray(currentSite.projects)?currentSite.projects:[]).filter(p=>p&&p.published!==false);
+    const raw=(Array.isArray(currentSite?.projects)?currentSite.projects:[]).filter(p=>p&&p.published!==false);
     const categories=['All',...new Set(raw.map(p=>p.category).filter(Boolean))];
     if(!categories.includes(activeFilter))activeFilter='All';
     const filters=$('project-filters');
@@ -52,7 +52,7 @@
     observeReveal();
   }
   function skillsRender(){
-    $('skills-grid').innerHTML=(Array.isArray(currentSite.skills)?currentSite.skills:[]).filter(Boolean).map(s=>`<article class="skill-card reveal"><div class="skill-icon" aria-hidden="true">${safe(icon(s.icon))}</div><h3>${safe(s.title)}</h3><div class="skill-pills">${(s.items||[]).map(i=>`<span class="skill-pill">${safe(i)}</span>`).join('')}</div></article>`).join('');
+    $('skills-grid').innerHTML=(Array.isArray(currentSite.skills)?currentSite.skills:[]).filter(Boolean).map(s=>`<article class="skill-card reveal"><div class="skill-icon" aria-hidden="true">${safe(icon(s.icon))}</div><h3>${safe(s.title)}</h3><div class="skill-pills">${(Array.isArray(s.items)?s.items:[]).map(i=>`<span class="skill-pill">${safe(i)}</span>`).join('')}</div></article>`).join('');
   }
   function milestonesRender(){
     $('journey-list').innerHTML=(Array.isArray(currentSite.milestones)?currentSite.milestones:[]).filter(Boolean).map(m=>`<div class="journey-item reveal"><div class="journey-year">${safe(m.year)}</div><h3>${safe(m.label)}</h3><p>${safe(m.description)}</p></div>`).join('');
@@ -60,7 +60,7 @@
   function certificatesRender(){
     const area=$('certificate-grid');
     if(!area)return;
-    if(!currentCertificates.length){area.innerHTML='<div class="cert-empty">Certification records will appear after they are added and published in the private Admin Studio. Certificates appear when I publish their details and evidence.</div>';return;}
+    if(!Array.isArray(currentCertificates)||!currentCertificates.length){area.innerHTML='<div class="cert-empty">Certification records will appear after they are added and published in the private Admin Studio. Certificates appear when I publish their details and evidence.</div>';return;}
     area.innerHTML=currentCertificates.map((c,i)=>{
       const pic=safeMedia(c.image);
       const link=safeMedia(c.file)||safeUrl(c.url,'')||pic;
@@ -70,12 +70,13 @@
   }
   function resumesRender(){
     const area=$('resume-list');
-    if(!currentResumes.length){area.innerHTML='<div class="resume-empty"><div class="resume-symbol">↧</div><h3>Resume coming soon</h3><p>Contact me for the latest version.</p></div>';return;}
+    if(!Array.isArray(currentResumes)||!currentResumes.length){area.innerHTML='<div class="resume-empty"><div class="resume-symbol">↧</div><h3>Resume coming soon</h3><p>Contact me for the latest version.</p></div>';return;}
     area.innerHTML=currentResumes.map(r=>`<div class="resume-item"><span class="res-icon">▤</span><div class="resume-item-info"><h3>${safe(r.label)}</h3><p>${safe(r.role||'Resume')} · ${safe(r.mime||'PDF')} · DOWNLOAD</p></div><a class="resume-download" href="${safe(safeMedia(r.file))}" download aria-label="Download ${safe(r.label)}" title="Download resume">↓</a></div>`).join('');
   }
   function updatePortrait(){
     const stored=safeMedia(currentSite?.profile?.avatar);
-    const source=stored && !stored.endsWith('profile-portrait.webp') ? stored : 'assets/uploads/images/harshad-marathi-hero.webp';
+    const legacy=/^(?:.*\/)?(?:profile-portrait\.webp|harshad-passport-crop-1\.jpg|harshad-marathi-hero\.webp)$/i;
+    const source=stored && !legacy.test(stored) ? stored : 'assets/uploads/images/harshad-portrait-v42.webp';
     for(const id of ['portrait-image','hero-avatar']){
       const image=$(id);if(!image)continue;
       image.onerror=()=>{image.style.visibility='hidden';};
@@ -109,26 +110,31 @@
     updatePortrait();projectRender();skillsRender();milestonesRender();resumesRender();certificatesRender();observeReveal();
   }
   async function load(){
-    let payload=null, lastError=null;
-    for(const path of ['./site-data.json?v=41','./site-data.json']){
-      try{
-        const response=await fetch(path,{cache:'no-store'});
-        if(!response.ok)throw Error('HTTP '+response.status+' for '+path);
-        const data=await response.json();
-        if(!data?.site?.profile||!Array.isArray(data.site.projects))throw Error('Invalid portfolio data');
-        payload=data;break;
-      }catch(error){lastError=error;console.warn('Portfolio JSON unavailable:',path,error);}
+    // A Pages deployment built directly from the branch may not have generated
+    // site-data.json. V4.1 commits a content snapshot for that situation.
+    // Normal GitHub Actions deployments overwrite it with fresh CMS content.
+    const paths=['./site-data.json?v=42','./site-data.json'];
+    let payload=null;let lastError=null;
+    for(const path of paths){
+      try {
+        const response=await fetch(path, {cache:'no-store'});
+        if(!response.ok)throw new Error(`HTTP ${response.status} for ${path}`);
+        const candidate=await response.json();
+        if(!candidate||!candidate.site||!candidate.site.profile||!Array.isArray(candidate.site.projects))throw Error('Invalid portfolio data structure');
+        payload=candidate;
+        break;
+      }catch(error){lastError=error;console.warn('Portfolio data source unavailable:',path,error);}
     }
     if(!payload){
-      console.error('Portfolio data unavailable:',lastError);
-      const grid=$('projects-grid');if(grid)grid.innerHTML='<p class="v41-loading-note">Project details are temporarily unavailable. Browse my projects on GitHub or contact me below.</p>';
+      console.error('Could not load portfolio content:',lastError);
+      const section=$('projects-grid');
+      if(section)section.innerHTML='<div class="v42-content-note">Project details could not be loaded from the deployment. <a href="https://github.com/Harshad8623" target="_blank" rel="noopener noreferrer">View my GitHub projects ↗</a> or use the contact links below.</div>';
       return;
     }
-    try{
-      applyData(payload.site,Array.isArray(payload.resumes)?payload.resumes:[],Array.isArray(payload.certificates)?payload.certificates:[]);
-    }catch(error){
+    try { applyData(payload.site,Array.isArray(payload.resumes)?payload.resumes:[],Array.isArray(payload.certificates)?payload.certificates:[]); }
+    catch(error){
       console.error('Portfolio rendering error:',error);
-      const grid=$('projects-grid');if(grid&&!grid.children.length)grid.innerHTML='<p class="v41-loading-note">Some details could not render. View my GitHub for all projects.</p>';
+      const section=$('projects-grid');if(section&&!section.children.length)section.innerHTML='<div class="v42-content-note">Some details are temporarily unavailable. Browse the <a href="https://github.com/Harshad8623" target="_blank" rel="noopener noreferrer">GitHub repositories ↗</a>.</div>';
     }
   }
   let revealObserver=null;
@@ -138,16 +144,16 @@
     document.querySelectorAll('.reveal:not(.is-visible)').forEach(e=>revealObserver.observe(e));
   }
   function stripLinkTracking(){
-    // Sharing services sometimes append utm_source=chatgpt.com to incoming links.
-    // Keep the clean address without disrupting anchors or other parameters.
+    // ChatGPT and other sharing apps may append utm_source; remove it from the visible address.
+    // Preserve normal query parameters and the current anchor (#top, #work, etc.).
     try {
-      const url=new URL(window.location.href);
-      let changed=false;
-      for(const key of [...url.searchParams.keys()]){
-        if(key.toLowerCase().startsWith('utm_')){url.searchParams.delete(key);changed=true;}
+      const url = new URL(window.location.href);
+      let changed = false;
+      for (const key of [...url.searchParams.keys()]) {
+        if (key.toLowerCase().startsWith('utm_')) { url.searchParams.delete(key); changed = true; }
       }
-      if(changed)history.replaceState(history.state,'',url.pathname+url.search+url.hash);
-    }catch(_){/* History writes may be blocked inside a preview. */}
+      if (changed) history.replaceState(history.state, '', url.pathname + url.search + url.hash);
+    } catch (_) { /* Some previews do not permit History API writes. */ }
   }
   function setup(){
     stripLinkTracking();

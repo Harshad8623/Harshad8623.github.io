@@ -78,8 +78,8 @@ def compile_site():
         profile[key] = public_media(profile.get(key, ''))
     if not isinstance(profile.get('name'), str) or not profile['name'].strip():
         raise ValueError('Profile full name is required')
-    # Pages CMS may omit optional fields when an editor saves the profile.
-    # Preserve an existing Marathi name and supply a safe default if absent.
+    # Pages CMS can omit optional fields when saving a profile edit.
+    # Marathi branding is never allowed to break a valid site build.
     if not isinstance(profile.get('marathiName'), str) or not profile['marathiName'].strip():
         profile['marathiName'] = 'हर्षद माधव धुप्पे'
 

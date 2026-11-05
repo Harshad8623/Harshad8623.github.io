@@ -1,5 +1,5 @@
-/* V4: thoughtful portfolio branding with user-supplied Marathi portrait art. */
-:root{--v4-navy:#181653;--v4-gold:#ffe521}
+/* V4 brand polish: user-provided Marathi portrait art and uncluttered HD monogram. */
+:root{--v4-navy:#181653;--v4-blue:#1637b8;--v4-gold:#ffe521}
 .brand{gap:12px;min-width:0;white-space:nowrap}
 .brand-mark{width:48px;height:48px;min-width:48px;padding:0;border-radius:14px;display:grid;place-items:center;letter-spacing:-2px;font-family:'Manrope',Arial,sans-serif;font-size:18px;line-height:1;font-weight:900;color:var(--v4-gold);background:#171450;border:1px solid rgba(255,255,255,.18);box-shadow:0 4px 11px rgba(20,18,60,.12);position:relative}
 .brand-mark:after{display:none!important;content:none!important}
@@ -7,7 +7,7 @@
 .brand-text span{font-size:11px!important;letter-spacing:-.1px!important;font-weight:600!important;color:#647365!important}
 .site-header{isolation:isolate}
 .v3-hero-grid{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(24px,3vw,50px)}
-.v3-hero-name{max-width:750px;font-size:clamp(47px,5vw,79px);line-height:1.02;letter-spacing:-3.4px}
+.v3-hero-name{max-width:750px;font-size:clamp(47px,5.0vw,79px);line-height:1.02;letter-spacing:-3.4px}
 .v3-visual{padding:0;min-height:unset;display:block;align-self:center}
 .v4-artwork-card{width:100%;margin:0;position:relative;overflow:hidden;isolation:isolate;border-radius:27px;background:#1822aa;box-shadow:0 20px 60px rgba(20,27,87,.19),0 2px 7px rgba(20,27,87,.09);border:1px solid rgba(15,24,87,.16);transform:translateZ(0);transition:transform .3s ease,box-shadow .3s ease}
 .v4-artwork-card:hover{transform:translateY(-4px);box-shadow:0 25px 66px rgba(20,27,87,.23),0 4px 12px rgba(20,27,87,.10)}

@@ -39,6 +39,7 @@ content:
     - name: marathiName
       label: Marathi name
       type: string
+      required: true
     - name: role
       label: Career headline
       type: string
